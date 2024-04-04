@@ -1,5 +1,7 @@
 package backend.moviestore.domain;
 
-public interface MovieRepository {
+import org.springframework.data.repository.CrudRepository;
+
+public interface MovieRepository extends CrudRepository<Movie, Long> {
 
 }
