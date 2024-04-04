@@ -8,10 +8,25 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 <body>
     <h1>Hello World!!!</h1>
-    <p>This is my moviestore</p>
-    <p>Here you can find and buy all kind of movies</p>
-    <p>Welcome</p>
-    <p>Trying to move my project to github</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Release Year</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Content for the table body goes here -->
+            <tr th:each="movie : ${movies}">
+                <td th:text="${movie.title}"></td>
+                <td th:text="${movie.releaseYear}"></td>
+                <td th:text="${movie.price}"></td>
+            </tr>
+            
+        </tbody>
+    </table>
+    
     
 </body>
 </html>
