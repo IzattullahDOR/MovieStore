@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import backend.moviestore.domain.Movie;
 import backend.moviestore.domain.MovieRepository;
 
 
@@ -33,5 +35,24 @@ public class MovieController {
         repository.deleteById(MovieId);
         return "redirect:../movielist";
     }
+
+    // Adding new movie
+    @GetMapping("/addmovie")
+    public String addmovie (Model model){
+
+        model.addAttribute("movie", new Movie());
+
+        return "addmovie"; // addmovie.html
+    }
+
+    // Saving new movie
+    @PostMapping("/save")
+    public String save (Movie movie){
+        repository.save(movie);
+        return "redirect:movielist";
+    }
+    
+
+    
 
 }
