@@ -2,6 +2,9 @@ package backend.moviestore.web;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,13 +33,14 @@ public class MovieController {
         return "movielist"; // movielist.html
     }
 
+    // handle deleting movie
     @GetMapping("/delete/{id}")
-    public String deleteMovie(@PathVariable("id") Long MovieId, Model model){
-        repository.deleteById(MovieId);
+    public String deleteMovie(@PathVariable("id") Long movieId, Model model){
+        repository.deleteById(movieId);
         return "redirect:../movielist";
     }
 
-    // Adding new movie
+    // handle Adding new movie action
     @GetMapping("/addmovie")
     public String addmovie (Model model){
 
@@ -45,14 +49,31 @@ public class MovieController {
         return "addmovie"; // addmovie.html
     }
 
-    // Saving new movie
+    // handle Saving new movie action
     @PostMapping("/save")
     public String save (Movie movie){
         repository.save(movie);
         return "redirect:movielist";
     }
-    
 
+    // Add movie to cart
+    private List<Movie> cart = new ArrayList<>(); // New cart list
+    @GetMapping("/addtocart/{id}") 
+    public String addToCart(@PathVariable("id") Long movieId) {
+         Movie movie = repository.findById(movieId).orElse(null);
+          if (movie != null) { 
+            cart.add(movie);
+         } 
+         return "redirect:/movielist";
+         } // Redirect back to the movies list }
+    
+    
+    
+@GetMapping("/addtocart")
+public String showCart(Model model){
+    model.addAttribute("cart", cart);
+    return "addtocart";
+}
     
 
 }

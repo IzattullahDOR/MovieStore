@@ -5,6 +5,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book List</title>
+
 </head>
 <body>
     <h1>Hello World!!!</h1>
@@ -22,7 +23,9 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                 <td th:text="${movie.title}"></td>
                 <td th:text="${movie.releaseYear}"></td>
                 <td th:text="${movie.price}"></td>
-                <!-- <td><a th:href="@{/delete/{id(id=${movie.id})}}"></td> -->
+                <!-- <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</td> -->
+                    <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</a></td>
+
                 <td><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>
 
             </tr>
@@ -31,6 +34,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
         
     </table>
     <a href="/addmovie" class="btn btn-primary">Add Movie</a> 
+    <a href="/addtocart" class="btn btn-primary">My cart</a> 
     
 </body>
 </html>
