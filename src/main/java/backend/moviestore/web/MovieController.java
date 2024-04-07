@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import backend.moviestore.domain.GenreRepository;
 import backend.moviestore.domain.Movie;
 import backend.moviestore.domain.MovieRepository;
 
@@ -24,6 +25,9 @@ public class MovieController {
 
     @Autowired
     private MovieRepository repository;
+
+    @Autowired
+    private GenreRepository gRepository;
 
     @RequestMapping (value = "/movielist", method = RequestMethod.GET)
     public String movieList(Model model) {
@@ -45,6 +49,7 @@ public class MovieController {
     public String addmovie (Model model){
 
         model.addAttribute("movie", new Movie());
+        model.addAttribute("genres", gRepository.findAll());
 
         return "addmovie"; // addmovie.html
     }

@@ -15,6 +15,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                 <th>Title</th>
                 <th>Release Year</th>
                 <th>Price</th>
+                <th>Genre</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +24,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                 <td th:text="${movie.title}"></td>
                 <td th:text="${movie.releaseYear}"></td>
                 <td th:text="${movie.price}"></td>
-                <!-- <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</td> -->
+                <td th:text="${movie.genre.name}"></td>          
                     <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</a></td>
 
                 <td><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>

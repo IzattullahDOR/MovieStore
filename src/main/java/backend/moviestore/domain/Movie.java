@@ -1,9 +1,13 @@
 package backend.moviestore.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Movie {
@@ -14,6 +18,19 @@ public class Movie {
     private String title;
     private int releaseYear;
     private double price;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "genreId") // FK
+    private Genre genre;
+
+    // getter and setter for genre
+    public Genre getGenre() {
+        return genre;
+    }
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
 
     // getterit ja setterit
     public long getId() {
@@ -44,17 +61,24 @@ public class Movie {
     // constructors
     public Movie() {}
 
-    public Movie(String title, int releaseYear, double price) {
+    public Movie(String title, int releaseYear, double price, Genre genre) {
         this.title = title;
         this.releaseYear = releaseYear;
         this.price = price;
+        this.genre = genre;
+        
     }
-
+    
     // toString
     @Override
     public String toString() {
-        return "Movie [id=" + id + ", title=" + title + ", releaseYear=" + releaseYear + ", price=" + price + "]";
+        return "Movie [id=" + id + ", title=" + title + ", releaseYear=" + releaseYear + ", price=" + price + ", genre="
+                + genre + "]";
     }
+
+    
+    
+    
 
     
 
