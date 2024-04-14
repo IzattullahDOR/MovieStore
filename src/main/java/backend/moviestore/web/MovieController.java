@@ -40,7 +40,7 @@ public class MovieController {
 
     // handle deleting movie
     @GetMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public String deleteMovie(@PathVariable("id") Long movieId, Model model){
         repository.deleteById(movieId);
         return "redirect:../movielist";
@@ -79,8 +79,31 @@ public class MovieController {
 @GetMapping("/addtocart")
 public String showCart(Model model){
     model.addAttribute("cart", cart);
+
+    // Calculate the total price
+    double totalPrice = cart.stream()
+                            .mapToDouble(Movie::getPrice) // Extract prices
+                            .sum(); // Sum prices
+
+    model.addAttribute("totalPrice", totalPrice);
     return "addtocart";
 }
     
+@GetMapping("/removefromcart/{id}")
+public String removeFromCart(@PathVariable("id") Long movieId) {
+    // Find the movie in the cart by id
+    Movie movieToRemove = cart.stream()
+                              .filter(movie -> movieId.equals(movieId))
+                              .findFirst()
+                              .orElse(null);
+    
+    // If the movie is found, remove it from the cart
+    if (movieToRemove != null) {
+        cart.remove(movieToRemove);
+    }
+    
+    return "redirect:/addtocart";
+}
+
 
 }

@@ -39,7 +39,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                 <td th:text="${movie.genre.name}"></td>          
                     <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</a></td>
 
-                <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>
+                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>
 
             </tr>
             

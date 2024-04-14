@@ -21,13 +21,17 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
             <tr th:each="movie : ${cart}">
                 <td th:text="${movie.title}"></td>                
                 <td th:text="${movie.price}"></td>
-                <td><a th:href="@{/delete/{id}(id=${movie.id})}">Remove</a></td>
+                <td><a th:href="@{/removefromcart/{id}(id=${movie.id})}">Remove</a></td>
+
 
             </tr>
             
         </tbody>
         
     </table>
+    <h3>Total Price: $<span th:text="${totalPrice}"></span>   <a href=" " class="btn btn-primary">Buy</a></h3>
+    
+
     
     
 </body>
