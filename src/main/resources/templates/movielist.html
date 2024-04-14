@@ -9,6 +9,17 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 </head>
 <body>
     <h1>Hello World!!!</h1>
+    <a href="/addtocart" class="btn btn-primary">My cart</a> 
+    <div class="container">
+        
+        <div class="col-md-4">
+            <h3>Welcome <span sec:authentication="name"></span></h3>
+        </div>
+        <div class="col-md-4" style="padding:20px 0">
+            <form th:action="@{/logout}" method="post">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+            </form>
+        </div>
     <table>
         <thead>
             <tr>
@@ -16,6 +27,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                 <th>Release Year</th>
                 <th>Price</th>
                 <th>Genre</th>
+                <th sec:authorize="hasRole('ADMIN')">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +39,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
                 <td th:text="${movie.genre.name}"></td>          
                     <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</a></td>
 
-                <td><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>
+                <td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>
 
             </tr>
             
@@ -35,7 +47,7 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
         
     </table>
     <a href="/addmovie" class="btn btn-primary">Add Movie</a> 
-    <a href="/addtocart" class="btn btn-primary">My cart</a> 
+    
     
 </body>
 </html>

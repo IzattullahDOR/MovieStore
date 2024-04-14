@@ -9,6 +9,8 @@ import backend.moviestore.domain.Genre;
 import backend.moviestore.domain.GenreRepository;
 import backend.moviestore.domain.Movie;
 import backend.moviestore.domain.MovieRepository;
+import backend.moviestore.domain.User;
+import backend.moviestore.domain.UserRepository;
 
 @SpringBootApplication
 public class MoviestoreApplication {
@@ -18,7 +20,7 @@ public class MoviestoreApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(MovieRepository mRepository, GenreRepository gRepository) {
+	public CommandLineRunner demo(MovieRepository mRepository, GenreRepository gRepository, UserRepository uRepository) {
 		return (args) -> {
 			
 
@@ -42,6 +44,11 @@ public class MoviestoreApplication {
 			mRepository.save(new Movie("Guardians of the Galaxy Vol.3", 2023, 11.99, genre7));
 			mRepository.save(new Movie("Spider-Man: No Way Home", 2021, 9.99, genre1));
 
+			//Adding demo user: to database admin/admin user/user
+			User user1 = new User("admin", "$2a$10$H8mj1malbA1.7Bzlyr/CIOlBzkmw.tsDoV.nhVMVn2jjoh8fP2Juy", "ADMIN");
+			User user2 =new User("user", "$2a$10$EuVHHl3iBS0w26V3Nsl48e3NuUjbhfWCU90.7gorXPjlqwjSTf5o2", "USER");
+			uRepository.save(user1);
+			uRepository.save(user2);
 		};
 	}
 
