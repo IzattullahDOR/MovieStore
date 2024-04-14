@@ -6,6 +6,8 @@
     <title>Add new movie</title>
 </head>
 <body>
+    <a href="/movielist">Movie Store</a>
+
     <h1>You can add new movie here!</h1>
     <div>
         <form th:object="${movie}" th:action="@{save}" action="#" method="post">
@@ -32,5 +34,6 @@
 
         </form>
     </div>
+    
 </body>
 </html>
