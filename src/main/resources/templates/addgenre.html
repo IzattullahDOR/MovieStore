@@ -1,26 +1,43 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Genre </title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="addCountainer">
-        <h2>Add Genre</h2>
-        <div>
-            <form th:object="${genre}" th:action="@{savegenre}" action="#" method="post">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Add Genre</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/movielist">Movie Store</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-                <label for="name">Name</label>
-                <input type="text" id="name" th:field ="*{name}" class="form-control" />
-                <div style="clear: both; display: block; height: 10px;"></div>
+    <div class="container mt-4">
+        <div class="addContainer">
+            <h2>Add Genre</h2>
+            <div>
+                <form th:object="${genre}" th:action="@{savegenre}" action="#" method="post">
 
-                <input type="submit" class="genre" value="Save"></input>
+                    <label for="name">Name</label>
+                    <input type="text" id="name" th:field ="*{name}" class="form-control" />
+                    <div style="clear: both; display: block; height: 10px;"></div>
 
-            </form>
+                    <input type="submit" class="btn btn-primary" value="Save"></input>
+
+                </form>
+            </div>
         </div>
     </div>
-    
+
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

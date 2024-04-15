@@ -5,51 +5,78 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie List</title>
-
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Hello World!!!</h1>
-    <a href="/movielist">Movie Store</a>
-
-    <a href="/addtocart" class="btn btn-primary">My cart</a> 
-    <div class="container">
-        
-        <div class="col-md-4">
-            <h3>Welcome <span sec:authentication="name"></span></h3>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Movie List</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/addtocart">My Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <span class="nav-link">Welcome <span sec:authentication="name"></span></span>
+                    </li>
+                    <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">
+                        <button type="submit" class="btn btn-sm btn-primary">Sign Out</button>
+                    </form>
+                </ul>
+            </div>
         </div>
-        <div class="col-md-4" style="padding:20px 0">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
-            </form>
+    </nav>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Movie List</h1>
+            </div>
         </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Release Year</th>
-                <th>Price</th>
-                <th>Genre</th>
-                <th sec:authorize="hasRole('ADMIN')">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Content for the table body goes here -->
-            <tr th:each="movie : ${movies}">
-                <td th:text="${movie.title}"></td>
-                <td th:text="${movie.releaseYear}"></td>
-                <td th:text="${movie.price}"></td>
-                <td th:text="${movie.genre.name}"></td>          
-                    <td><a th:href="@{/addtocart/{id}(id=${movie.id})}">Buy now</a></td>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Release Year</th>
+                            <th>Price</th>
+                            <th>Genre</th>
+                            <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Content for the table body goes here -->
+                        <tr th:each="movie : ${movies}">
+                            <td th:text="${movie.title}"></td>
+                            <td th:text="${movie.releaseYear}"></td>
+                            <td th:text="${movie.price}"></td>
+                            <td th:text="${movie.genre.name}"></td>          
+                            <td>
+                                <a th:href="@{/addtocart/{id}(id=${movie.id})}" class="btn btn-success btn-sm">Buy Now</a>
+                                <span sec:authorize="hasAuthority('ADMIN')">
+                                    <a th:href="@{/delete/{id}(id=${movie.id})}" class="btn btn-danger btn-sm">Delete</a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-12">
+                <a href="/addmovie" class="btn btn-primary">Add Movie</a>
+            </div>
+        </div>
+    </div>
 
-                <td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${movie.id})}">Delete</a></td>
-
-            </tr>
-            
-        </tbody>
-        
-    </table>
-    <a href="/addmovie" class="btn btn-primary">Add Movie</a> 
-    
-    
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
